@@ -1,0 +1,41 @@
+[debug] [2025-05-25T10:39:11.899Z] ----------------------------------------------------------------------
+[debug] [2025-05-25T10:39:11.904Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\benjamin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2025-05-25T10:39:11.905Z] CLI Version:   14.4.0
+[debug] [2025-05-25T10:39:11.905Z] Platform:      win32
+[debug] [2025-05-25T10:39:11.905Z] Node Version:  v22.16.0
+[debug] [2025-05-25T10:39:11.905Z] Time:          Sun May 25 2025 12:39:11 GMT+0200 (heure d’été d’Europe centrale)
+[debug] [2025-05-25T10:39:11.905Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-05-25T10:39:11.912Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-05-25T10:39:11.913Z] > authorizing via signed-in user (aubry.benjamin02@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\benjamin\Desktop\site web ecommerce
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2025-05-25T10:40:15.879Z] Checked if tokens are valid: true, expires at: 1748173119492
+[debug] [2025-05-25T10:40:15.880Z] Checked if tokens are valid: true, expires at: 1748173119492
+[debug] [2025-05-25T10:40:15.884Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2025-05-25T10:40:15.885Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"ecommerce0200","name":"ecommerce0200"}
+[debug] [2025-05-25T10:40:16.638Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 409
+[debug] [2025-05-25T10:40:16.638Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"error":{"code":409,"message":"Requested entity already exists","status":"ALREADY_EXISTS"}}
+[debug] [2025-05-25T10:40:16.714Z] FirebaseError: Request to https://cloudresourcemanager.googleapis.com/v1/projects had HTTP Error: 409, Requested entity already exists
+    at responseToError (C:\Users\benjamin\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:52:12)
+    at RetryOperation._fn (C:\Users\benjamin\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:312:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: Failed to create project because there is already a project with ID ecommerce0200. Please try again with a unique project ID.
