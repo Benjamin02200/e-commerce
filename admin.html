@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="style.css"/> 
+  <title>Interface Admin - Stock</title>
+</head>
+<body>
+  <header>
+    <h1>Gestion de Stock (Admin)</h1>
+    <button onclick="logout()" style="float:right; margin-top:-2rem;">Déconnexion</button>
+  </header>
+
+  <main>
+    <section class="form-section">
+      <h2>Ajouter un article</h2>
+      <input type="text" id="item-name" placeholder="Nom de l'article" />
+      <input type="number" id="item-quantity" placeholder="Quantité" />
+      <input type="file" id="item-pdf" accept="application/pdf" />
+      <br />
+      <button onclick="addItem()">Ajouter</button>
+    </section>
+
+    <section class="list-section">
+      <h2>Articles en stock</h2>
+      <ul id="stock-list"></ul>
+      <button onclick="printShippingList()">📦 Préparer pour la Poste</button>
+      <button onclick="showToSend()">📮 Gérer les envois</button>
+      <button onclick="markAllAsSent()">✅ Tout marquer comme envoyé</button>
+      <div id="send-section"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

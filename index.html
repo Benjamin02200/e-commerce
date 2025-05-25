@@ -1,35 +1,29 @@
-<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="style.css"/> 
-  <title>Interface de Stockage</title>
+  <link rel="stylesheet" href="style.css">
+  <title>Connexion Admin</title>
 </head>
 <body>
-  <header>
-    <h1>Gestion de Stock</h1>
-  </header>
-
-  <main>
-    <section class="form-section">
-      <h2>Ajouter un article</h2>
-      <input type="text" id="item-name" placeholder="Nom de l'article" />
-      <input type="number" id="item-quantity" placeholder="Quantité" />
-      <input type="file" id="item-pdf" accept="application/pdf" />
-      <br />
-      <button onclick="addItem()">Ajouter</button>
-    </section>
-
-    <section class="list-section">
-      <h2>Articles en stock</h2>
-      <ul id="stock-list"></ul>
-      <button onclick="printShippingList()">📦 Préparer pour la Poste</button>
-      <button onclick="showToSend()">📮 Gérer les envois</button>
-      <div id="send-section"></div>
-    </section>
+  <main class="form-section">
+    <h2>🔐 Connexion Administrateur</h2>
+    <input type="password" id="admin-password" placeholder="Mot de passe" />
+    <button onclick="login()">Se connecter</button>
+    <p id="error" style="color:red;"></p>
   </main>
+  <script>
+    function login() {
+      const password = document.getElementById("admin-password").value;
+      const correctPassword = "050425";
 
-  <script src="script.js"></script>
+      if (password === correctPassword) {
+        localStorage.setItem("adminLoggedIn", "true");
+        window.location.href = "admin.html";
+      } else {
+        document.getElementById("error").textContent = "Mot de passe incorrect.";
+      }
+    }
+  </script>
 </body>
 </html>

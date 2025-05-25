@@ -1,3 +1,14 @@
+// Vérification d'accès admin
+if (location.pathname.includes("admin.html") && localStorage.getItem("adminLoggedIn") !== "true") {
+  alert("Accès refusé. Veuillez vous connecter.");
+  window.location.href = "index.html";
+}
+
+function logout() {
+  localStorage.removeItem("adminLoggedIn");
+  window.location.href = "index.html";
+}
+
 document.addEventListener("DOMContentLoaded", loadItems);
 
 function loadItems() {
@@ -8,7 +19,10 @@ function loadItems() {
   items.forEach((item, index) => {
     const li = document.createElement("li");
     li.innerHTML = `
-      <div class="item-details">${item.name} - ${item.quantity} pcs</div>
+      <div class="item-details">
+        ${item.name} - ${item.quantity} pcs<br>
+        <small>📄 Fichier: ${item.pdfBase64 ? "PDF disponible" : "Aucun"}</small>
+      </div>
       <label class="status">
         <input type="checkbox" ${item.sent ? "checked" : ""} onchange="toggleSent(${index})">
         Déjà envoyé
@@ -29,7 +43,6 @@ function addItem() {
     alert("Veuillez remplir correctement le nom et la quantité.");
     return;
   }
-
   if (!file) {
     alert("Veuillez sélectionner un fichier PDF.");
     return;
@@ -38,7 +51,6 @@ function addItem() {
   const reader = new FileReader();
   reader.onload = function(event) {
     const pdfBase64 = event.target.result;
-
     const items = JSON.parse(localStorage.getItem("stock")) || [];
     items.push({ name, quantity, sent: false, pdfBase64 });
     localStorage.setItem("stock", JSON.stringify(items));
@@ -53,6 +65,7 @@ function addItem() {
 }
 
 function removeItem(index) {
+  if (!confirm("Supprimer cet article ?")) return;
   const items = JSON.parse(localStorage.getItem("stock")) || [];
   items.splice(index, 1);
   localStorage.setItem("stock", JSON.stringify(items));
@@ -62,6 +75,13 @@ function removeItem(index) {
 function toggleSent(index) {
   const items = JSON.parse(localStorage.getItem("stock")) || [];
   items[index].sent = !items[index].sent;
+  localStorage.setItem("stock", JSON.stringify(items));
+  loadItems();
+}
+
+function markAllAsSent() {
+  const items = JSON.parse(localStorage.getItem("stock")) || [];
+  items.forEach(item => item.sent = true);
   localStorage.setItem("stock", JSON.stringify(items));
   loadItems();
 }
@@ -83,18 +103,12 @@ function printShippingList() {
 
   const win = window.open("", "Liste d'expédition", "width=600,height=800");
   win.document.write(`
-    <html>
-      <head>
-        <title>Liste pour la Poste</title>
-        <style>
-          body { font-family: sans-serif; padding: 2rem; }
-          h1 { text-align: center; }
-          ul { font-size: 1.2rem; }
-          li { margin-bottom: 1rem; }
-        </style>
-      </head>
-      <body>${content}</body>
-    </html>
+    <html><head><title>Liste pour la Poste</title><style>
+      body { font-family: sans-serif; padding: 2rem; }
+      h1 { text-align: center; }
+      ul { font-size: 1.2rem; }
+      li { margin-bottom: 1rem; }
+    </style></head><body>${content}</body></html>
   `);
   win.document.close();
   win.focus();
@@ -104,8 +118,7 @@ function printShippingList() {
 function showToSend() {
   const sendDiv = document.getElementById("send-section");
   const items = JSON.parse(localStorage.getItem("stock")) || [];
-  const toSend = items.map((item, index) => ({ ...item, index }))
-                      .filter(item => !item.sent);
+  const toSend = items.map((item, index) => ({ ...item, index })).filter(item => !item.sent);
 
   if (toSend.length === 0) {
     sendDiv.innerHTML = "<p>Aucun article à envoyer.</p>";
@@ -130,10 +143,10 @@ function printAndRemove(index) {
   if (!item) return;
 
   if (item.pdfBase64) {
-    const pdfWindow = window.open("");
-    pdfWindow.document.write(
-      `<iframe width='100%' height='100%' src='${item.pdfBase64}'></iframe>`
-    );
+    const link = document.createElement("a");
+    link.href = item.pdfBase64;
+    link.download = `${item.name}.pdf`;
+    link.click();
   } else {
     alert("Pas de PDF associé à cet article.");
   }

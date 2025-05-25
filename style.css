@@ -71,3 +71,18 @@ li button:hover {
 .status {
   margin-right: 1rem;
 }
+
+#send-section {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #fff3cd;
+  border: 1px solid #ffeeba;
+  border-radius: 5px;
+}
+
+/* Centrage pour la page de connexion */
+.form-section {
+  max-width: 400px;
+  margin: 100px auto;
+  text-align: center;
+}
